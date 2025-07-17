@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS CLF-C02 Study Guide - Complete</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            padding: 2rem 1rem;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0 1rem 2rem 1rem;
+            justify-content: center;
+        }
+
+        .tab {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .tab.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .frameworks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .framework-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .framework-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .framework-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 15px;
+            color: white;
+        }
+
+        .caf-title {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+
+        .well-arch-title {
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+        }
+
+        .pillars-container {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .pillar {
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pillar:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .caf-business { background: #FFF5F5; border-color: #E53E3E; }
+        .caf-people { background: #F7FAFC; border-color: #4299E1; }
+        .caf-governance { background: #F0FFF4; border-color: #38A169; }
+        .caf-platform { background: #FFFBEB; border-color: #D69E2E; }
+        .caf-security { background: #FAF5FF; border-color: #9F7AEA; }
+        .caf-operations { background: #FFF5F7; border-color: #ED64A6; }
+
+        .wa-operational { background: #EDF2F7; border-color: #2D3748; }
+        .wa-security { background: #FED7D7; border-color: #C53030; }
+        .wa-reliability { background: #C6F6D5; border-color: #2F855A; }
+        .wa-performance { background: #BEE3F8; border-color: #2B6CB0; }
+        .wa-cost { background: #FEEBC8; border-color: #C05621; }
+        .wa-sustainability { background: #D6F5D6; border-color: #276749; }
+
+        .pillar-name {
+            font-weight: bold;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-description {
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            color: #666;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .service-header {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            color: #222222;
+            text-align: center;
+        }
+
+        .compute { background: linear-gradient(45deg, #FF6B6B, #FF8E53); }
+        .storage { background: linear-gradient(45deg, #4ECDC4, #44A08D); }
+        .database { background: linear-gradient(45deg, #A8E6CF, #7FCDCD); }
+        .networking { background: linear-gradient(45deg, #FFD93D, #FF6B6B); }
+        .security { background: linear-gradient(45deg, #B19CD9, #C44569); }
+        .management { background: linear-gradient(45deg, #FFA726, #FB8C00); }
+        .analytics { background: linear-gradient(45deg, #26A69A, #00BCD4); }
+        .ai-ml { background: linear-gradient(45deg, #AB47BC, #8E24AA); }
+        .developer { background: linear-gradient(45deg, #66BB6A, #43A047); }
+
+        .services-list {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .service-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .service-name {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 0.3rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .service-description {
+            color: #666;
+            font-size: clamp(0.8rem, 2vw, 0.85rem);
+        }
+
+        .memory-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .memory-title {
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .memory-tricks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .trick-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+        }
+
+        .trick-title {
+            font-weight: bold;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            margin-bottom: 1rem;
+            color: #495057;
+        }
+
+        .acronym {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            margin: 0.8rem 0;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+        }
+
+        .quiz-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .quiz-option {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e9ecef;
+            text-align: center;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .quiz-option:hover {
+            background: #e9ecef;
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            transition: transform 0.3s ease;
+            display: block;
+            margin: 1rem auto;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .tip-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .tip-title {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 0.8rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+        }
+
+        @media (max-width: 768px) {
+            .frameworks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab {
+                width: 200px;
+                text-align: center;
+            }
+            
+            .memory-tricks {
+                grid-template-columns: 1fr;
+            }
+            
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .framework-card,
+            .service-card,
+            .memory-section,
+            .quiz-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>AWS CLF-C02 Complete Study Guide</h1>
+        <p>Master AWS Cloud Adoption Framework, Well-Architected Framework, and AWS Services</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="tab active" onclick="showSection('overview')">Frameworks Overview</button>
+        <button class="tab" onclick="showSection('mapping')">Service Mapping</button>
+        <button class="tab" onclick="showSection('services')">AWS Services Guide</button>
+        <button class="tab" onclick="showSection('quiz')">Practice Quiz</button>
+        <button class="tab" onclick="showSection('tips')">Memory Tips</button>
+    </div>
+
+    <div class="container">
+        <div id="overview" class="section active">
+            <div class="frameworks-grid">
+                <div class="framework-card">
+                    <div class="framework-title caf-title">AWS CAF</div>
+                    <div style="text-align: center; margin-bottom: 1.5rem; color: #666; font-size: clamp(0.9rem, 2.5vw, 1rem);">
+                        Cloud Adoption Framework (6 Perspectives)
+                    </div>
+                    <div class="pillars-container">
+                        <div class="pillar caf-business">
+                            <div class="pillar-name">Business</div>
+                            <div class="pillar-description">Ensures IT investments align with business outcomes and ROI</div>
+                        </div>
+                        <div class="pillar caf-people">
+                            <div class="pillar-name">People</div>
+                            <div class="pillar-description">Skills, organizational structure, and change management</div>
+                        </div>
+                        <div class="pillar caf-governance">
+                            <div class="pillar-name">Governance</div>
+                            <div class="pillar-description">Risk management, compliance, and portfolio management</div>
+                        </div>
+                        <div class="pillar caf-platform">
+                            <div class="pillar-name">Platform</div>
+                            <div class="pillar-description">Architecture, infrastructure, and cloud platform capabilities</div>
+                        </div>
+                        <div class="pillar caf-security">
+                            <div class="pillar-name">Security</div>
+                            <div class="pillar-description">Identity, compliance, data protection, and incident response</div>
+                        </div>
+                        <div class="pillar caf-operations">
+                            <div class="pillar-name">Operations</div>
+                            <div class="pillar-description">Monitoring, automation, and day-to-day operations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="framework-card">
+                    <div class="framework-title well-arch-title">Well-Architected</div>
+                    <div style="text-align: center; margin-bottom: 1.5rem; color: #666; font-size: clamp(0.9rem, 2.5vw, 1rem);">
+                        Framework (6 Pillars)
+                    </div>
+                    <div class="pillars-container">
+                        <div class="pillar wa-operational">
+                            <div class="pillar-name">Operational Excellence</div>
+                            <div class="pillar-description">Run and monitor systems to deliver business value</div>
+                        </div>
+                        <div class="pillar wa-security">
+                            <div class="pillar-name">Security</div>
+                            <div class="pillar-description">Protect data, systems, and assets using cloud security technologies</div>
+                        </div>
+                        <div class="pillar wa-reliability">
+                            <div class="pillar-name">Reliability</div>
+                            <div class="pillar-description">Recover from failures and meet business demands</div>
+                        </div>
+                        <div class="pillar wa-performance">
+                            <div class="pillar-name">Performance Efficiency</div>
+                            <div class="pillar-description">Use computing resources efficiently and maintain performance</div>
+                        </div>
+                        <div class="pillar wa-cost">
+                            <div class="pillar-name">Cost Optimization</div>
+                            <div class="pillar-description">Deliver business value at the lowest price point</div>
+                        </div>
+                        <div class="pillar wa-sustainability">
+                            <div class="pillar-name">Sustainability</div>
+                            <div class="pillar-description">Minimize environmental impact of cloud workloads</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mapping" class="section">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="color: white; font-size: clamp(1.5rem, 4vw, 2rem);">AWS Services → Framework Mapping</h2>
+                <p style="color: rgba(255,255,255,0.9); font-size: clamp(1rem, 3vw, 1.1rem);">Learn which AWS service belongs to which framework pillar</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header caf-business">CAF - Business</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">AWS Cost Explorer</div>
+                            <div class="service-description">Analyze and visualize your AWS costs</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Budgets</div>
+                            <div class="service-description">Set custom cost and usage budgets</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS TCO Calculator</div>
+                            <div class="service-description">Calculate total cost of ownership</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Pricing Calculator</div>
+                            <div class="service-description">Estimate AWS service costs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header caf-people">CAF - People</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">AWS Training & Certification</div>
+                            <div class="service-description">Skills development and certification programs</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Partner Network</div>
+                            <div class="service-description">Connect with AWS consulting partners</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Professional Services</div>
+                            <div class="service-description">Expert guidance for cloud adoption</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Support Plans</div>
+                            <div class="service-description">Technical support and guidance</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header caf-governance">CAF - Governance</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">AWS Organizations</div>
+                            <div class="service-description">Centrally manage multiple AWS accounts</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Control Tower</div>
+                            <div class="service-description">Set up and govern secure multi-account environment</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Config</div>
+                            <div class="service-description">Track resource configurations and compliance</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS CloudTrail</div>
+                            <div class="service-description">Log and monitor account activity</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header wa-security">Security (Both Frameworks)</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">AWS IAM</div>
+                            <div class="service-description">Identity and access management</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS KMS</div>
+                            <div class="service-description">Key management and encryption</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS WAF</div>
+                            <div class="service-description">Web application firewall</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon GuardDuty</div>
+                            <div class="service-description">Threat detection service</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header wa-reliability">WA - Reliability</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">Amazon EC2 Auto Scaling</div>
+                            <div class="service-description">Automatically scale EC2 instances</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Elastic Load Balancing</div>
+                            <div class="service-description">Distribute traffic across instances</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon RDS Multi-AZ</div>
+                            <div class="service-description">High availability database deployments</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Backup</div>
+                            <div class="service-description">Centralized backup across AWS services</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header wa-performance">WA - Performance</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">Amazon CloudFront</div>
+                            <div class="service-description">Content delivery network (CDN)</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon ElastiCache</div>
+                            <div class="service-description">In-memory caching service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Lambda</div>
+                            <div class="service-description">Serverless compute service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon DynamoDB</div>
+                            <div class="service-description">Fast NoSQL database</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="services" class="section">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="color: white; font-size: clamp(1.5rem, 4vw, 2rem);">Complete AWS Services Guide</h2>
+                <input type="text" class="search-box" placeholder="Search AWS services..." onkeyup="filterServices(this.value)">
+            </div>
+
+            <div class="services-grid" id="servicesGrid">
+                <div class="service-card" data-category="compute">
+                    <div class="service-header compute">Compute Services</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">Amazon EC2</div>
+                            <div class="service-description">Virtual servers in the cloud</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Lambda</div>
+                            <div class="service-description">Run code without managing servers</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon ECS</div>
+                            <div class="service-description">Container orchestration service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon EKS</div>
+                            <div class="service-description">Managed Kubernetes service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Fargate</div>
+                            <div class="service-description">Serverless containers</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon Lightsail</div>
+                            <div class="service-description">Simple virtual private servers</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card" data-category="storage">
+                    <div class="service-header storage">Storage Services</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">Amazon S3</div>
+                            <div class="service-description">Scalable object storage</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon EBS</div>
+                            <div class="service-description">Block storage for EC2</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon EFS</div>
+                            <div class="service-description">Managed file system</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Storage Gateway</div>
+                            <div class="service-description">Hybrid cloud storage</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon FSx</div>
+                            <div class="service-description">High-performance file systems</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Snow Family</div>
+                            <div class="service-description">Physical data transfer devices</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card" data-category="database">
+                    <div class="service-header database">Database Services</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">Amazon RDS</div>
+                            <div class="service-description">Managed relational databases</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon DynamoDB</div>
+                            <div class="service-description">NoSQL database service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon Aurora</div>
+                            <div class="service-description">High-performance relational database</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon ElastiCache</div>
+                            <div class="service-description">In-memory caching</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon Redshift</div>
+                            <div class="service-description">Data warehouse service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon DocumentDB</div>
+                            <div class="service-description">MongoDB-compatible database</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card" data-category="networking">
+                    <div class="service-header networking">Networking Services</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">Amazon VPC</div>
+                            <div class="service-description">Virtual private cloud</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon CloudFront</div>
+                            <div class="service-description">Content delivery network</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Direct Connect</div>
+                            <div class="service-description">Dedicated network connection to AWS</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon Route 53</div>
+                            <div class="service-description">DNS web service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Elastic Load Balancing</div>
+                            <div class="service-description">Distribute incoming traffic</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS VPN</div>
+                            <div class="service-description">Secure connection to AWS</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS API Gateway</div>
+                            <div class="service-description">Build and deploy APIs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card" data-category="security">
+                    <div class="service-header security">Security Services</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">AWS IAM</div>
+                            <div class="service-description">Identity and access management</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS KMS</div>
+                            <div class="service-description">Key management service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS WAF</div>
+                            <div class="service-description">Web application firewall</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Shield</div>
+                            <div class="service-description">DDoS protection</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon GuardDuty</div>
+                            <div class="service-description">Threat detection service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Security Hub</div>
+                            <div class="service-description">Central security dashboard</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card" data-category="management">
+                    <div class="service-header management">Management & Governance</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">Amazon CloudWatch</div>
+                            <div class="service-description">Monitoring and observability</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS CloudFormation</div>
+                            <div class="service-description">Infrastructure as code</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS CloudTrail</div>
+                            <div class="service-description">API logging and monitoring</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Config</div>
+                            <div class="service-description">Resource configuration tracking</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Systems Manager</div>
+                            <div class="service-description">Operational insights and actions</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Trusted Advisor</div>
+                            <div class="service-description">Cost optimization recommendations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card" data-category="analytics">
+                    <div class="service-header analytics">Analytics Services</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">Amazon Athena</div>
+                            <div class="service-description">Query data in S3 using SQL</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon EMR</div>
+                            <div class="service-description">Big data processing</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon Kinesis</div>
+                            <div class="service-description">Real-time data streaming</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Glue</div>
+                            <div class="service-description">ETL service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon QuickSight</div>
+                            <div class="service-description">Business intelligence service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS Data Pipeline</div>
+                            <div class="service-description">Data workflow orchestration</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card" data-category="ai-ml">
+                    <div class="service-header ai-ml">AI & Machine Learning</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">Amazon SageMaker</div>
+                            <div class="service-description">Machine learning platform</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon Rekognition</div>
+                            <div class="service-description">Image and video analysis</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon Comprehend</div>
+                            <div class="service-description">Natural language processing</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon Polly</div>
+                            <div class="service-description">Text-to-speech service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon Lex</div>
+                            <div class="service-description">Build chatbots</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">Amazon Translate</div>
+                            <div class="service-description">Language translation service</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card" data-category="developer">
+                    <div class="service-header developer">Developer Tools</div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-name">AWS CodeCommit</div>
+                            <div class="service-description">Source control service</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS CodeBuild</div>
+                            <div class="service-description">Build and test code</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS CodeDeploy</div>
+                            <div class="service-description">Application deployment</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS CodePipeline</div>
+                            <div class="service-description">Continuous integration/delivery</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS X-Ray</div>
+                            <div class="service-description">Application performance monitoring</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-name">AWS CodeStar</div>
+                            <div class="service-description">Develop and deploy applications</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz" class="section">
+            <div class="quiz-section">
+                <h2 style="text-align: center; margin-bottom: 2rem; font-size: clamp(1.5rem, 4vw, 2rem);">Practice Quiz</h2>
+                
+                <div class="quiz-question">
+                    <h3>AWS IAM belongs to which pillar in Well-Architected Framework?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Operational Excellence</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, true)">Security</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Reliability</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Performance Efficiency</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>AWS Organizations is primarily associated with which CAF perspective?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Business</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, true)">Governance</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Platform</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Operations</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>Amazon CloudFront is best associated with which Well-Architected pillar?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Security</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Reliability</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, true)">Performance Efficiency</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Cost Optimization</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>AWS Training & Certification relates to which CAF perspective?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Business</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, true)">People</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Governance</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Security</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>AWS Auto Scaling groups support which Well-Architected principle?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Security</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, true)">Reliability</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Cost Optimization</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Sustainability</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>Which service is primarily used for Infrastructure as Code?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Amazon CloudWatch</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, true)">AWS CloudFormation</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">AWS Config</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">AWS CloudTrail</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>Amazon S3 belongs to which service category?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Compute</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, true)">Storage</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Database</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Networking</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>What is the primary purpose of Amazon RDS?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Object storage</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, true)">Managed relational databases</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Content delivery</div>
+                        <div class="quiz-option" onclick="selectQuizAnswer(this, false)">Container orchestration</div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="resetQuiz()">Reset Quiz</button>
+            </div>
+        </div>
+
+        <div id="tips" class="section">
+            <div class="memory-section">
+                <div class="memory-title">Memory Tips & Tricks</div>
+                <div class="memory-tricks">
+                    <div class="trick-card">
+                        <div class="trick-title">AWS CAF (Business Focus)</div>
+                        <div class="acronym">B-P-G-P-S-O</div>
+                        <p><strong>"Big People Govern Platform Security Operations"</strong></p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>B</strong>usiness</li>
+                            <li><strong>P</strong>eople</li>
+                            <li><strong>G</strong>overnance</li>
+                            <li><strong>P</strong>latform</li>
+                            <li><strong>S</strong>ecurity</li>
+                            <li><strong>O</strong>perations</li>
+                        </ul>
+                        <p><em>Focus: HOW to adopt cloud (organizational transformation)</em></p>
+                    </div>
+                    
+                    <div class="trick-card">
+                        <div class="trick-title">Well-Architected (Technical Focus)</div>
+                        <div class="acronym">O-S-R-P-C-S</div>
+                        <p><strong>"Operational Security Requires Performance, Cost & Sustainability"</strong></p>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                            <li><strong>O</strong>perational Excellence</li>
+                            <li><strong>S</strong>ecurity</li>
+                            <li><strong>R</strong>eliability</li>
+                            <li><strong>P</strong>erformance Efficiency</li>
+                            <li><strong>C</strong>ost Optimization</li>
+                            <li><strong>S</strong>ustainability</li>
+                        </ul>
+                        <p><em>Focus: HOW to design systems (architectural best practices)</em></p>
+                    </div>
+                </div>
+
+                <div class="tip-grid" style="margin-top: 2rem;">
+                    <div class="tip-card">
+                        <div class="tip-title">🏢 Business (CAF)</div>
+                        <p>Anything related to <strong>MONEY</strong>: Cost Explorer, Budgets, TCO Calculator, Pricing</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">👥 People (CAF)</div>
+                        <p>Anything related to <strong>HUMANS</strong>: Training, Certification, Support, Professional Services</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">🏛️ Governance (CAF)</div>
+                        <p>Anything related to <strong>CONTROL</strong>: Organizations, Control Tower, Config, CloudTrail</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">🔒 Security (Both)</div>
+                        <p>Anything with <strong>IAM, KMS, WAF, Guard</strong> in the name</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">⚡ Performance (WA)</div>
+                        <p>Anything that makes things <strong>FASTER</strong>: CloudFront, ElastiCache, Lambda, DynamoDB</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">🔄 Reliability (WA)</div>
+                        <p>Anything with <strong>BACKUP, MULTI-AZ, AUTO SCALING</strong> in the name</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">💰 Cost Optimization (WA)</div>
+                        <p>Anything with <strong>RESERVED, SPOT, SAVINGS</strong> in the name</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <div class="tip-title">🌱 Sustainability (WA)</div>
+                        <p>Anything <strong>SERVERLESS</strong> or energy-efficient: Lambda, Fargate, Graviton</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: #e3f2fd; border-radius: 10px; border-left: 4px solid #2196f3;">
+                    <h3 style="color: #1976d2; margin-bottom: 1rem;">Quick Exam Tips:</h3>
+                    <ul style="padding-left: 1.5rem; color: #424242;">
+                        <li><strong>CAF questions</strong> → Focus on adoption, migration, organizational change</li>
+                        <li><strong>Well-Architected questions</strong> → Focus on system design, architecture, optimization</li>
+                        <li><strong>Service mapping</strong> → Look for keywords in service names (Auto, Multi, Reserved, etc.)</li>
+                        <li><strong>When in doubt</strong> → Security services are usually in Security pillar for both frameworks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function selectQuizAnswer(element, isCorrect) {
+            const options = element.parentNode.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                option.style.pointerEvents = 'none';
+            });
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+                const correctAnswers = ['Security', 'Governance', 'Performance Efficiency', 'People', 'Reliability', 'AWS CloudFormation', 'Storage', 'Managed relational databases'];
+                const questionIndex = Array.from(document.querySelectorAll('.quiz-question')).indexOf(element.closest('.quiz-question'));
+                
+                options.forEach(option => {
+                    if (option !== element && option.textContent.includes(correctAnswers[questionIndex])) {
+                        option.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                option.style.pointerEvents = 'auto';
+            });
+        }
+
+        function filterServices(searchTerm) {
+            const serviceCards = document.querySelectorAll('#servicesGrid .service-card');
+            const searchLower = searchTerm.toLowerCase();
+            
+            serviceCards.forEach(card => {
+                const serviceItems = card.querySelectorAll('.service-item');
+                let hasMatch = false;
+                
+                serviceItems.forEach(item => {
+                    const serviceName = item.querySelector('.service-name').textContent.toLowerCase();
+                    const serviceDesc = item.querySelector('.service-description').textContent.toLowerCase();
+                    
+                    if (serviceName.includes(searchLower) || serviceDesc.includes(searchLower)) {
+                        item.style.display = 'block';
+                        hasMatch = true;
+                    } else {
+                        item.style.display = searchTerm ? 'none' : 'block';
+                    }
+                });
+                
+                card.style.display = hasMatch || !searchTerm ? 'block' : 'none';
+            });
+        }
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Add touch support for better mobile experience
+        document.querySelectorAll('.service-item, .pillar, .quiz-option').forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            element.addEventListener('touchend', function() {
+                this.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>
